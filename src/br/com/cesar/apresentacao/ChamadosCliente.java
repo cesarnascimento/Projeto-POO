@@ -1,6 +1,7 @@
 package br.com.cesar.apresentacao;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import br.com.cesar.entidades.Chamado;
@@ -54,9 +55,13 @@ public class ChamadosCliente {
         }
     }
 
+    private double porcAdm = 0;
+    private double porcHardware = 0;
+    private double porcPrio = 0;
+    private int totalChamados = 0;
+
     private void abrirChamado(Cliente cliente) {
         Chamado chamado = new Chamado();
-
         System.out.println("Entre com o título do Chamado:");
         // set Titulo
         chamado.setTitulo(sc.nextLine());
@@ -69,6 +74,9 @@ public class ChamadosCliente {
             System.out.println("3 - Diretoria");
             opc = Integer.parseInt(sc.nextLine());
 
+            if(opc == 1){
+                porcAdm++;
+            }
             if (opc < 1 || opc > 3) {
                 System.out.println("Valor aceitável: 1, 2 e 3");
             }
@@ -86,6 +94,9 @@ public class ChamadosCliente {
             System.out.println("5 - Backup");
             opc = Integer.parseInt(sc.nextLine());
 
+            if(opc == 1){
+                porcHardware++;
+            }
             if (opc < 1 || opc > 5) {
                 System.out.println("Valor aceitável: 1, 2, 3, 4 e 5");
             }
@@ -122,6 +133,9 @@ public class ChamadosCliente {
             System.out.println("Qual a prioridade?\n1 - Alta\n2 - Média\n3 - Baixa\n");
             opc = Integer.parseInt(sc.nextLine());
 
+            if(opc == 1){
+                porcPrio++;
+            }
             if (opc < 1 || opc > 3) {
                 System.out.println("Valor aceitável: 1, 2 e 3");
             }
@@ -132,6 +146,7 @@ public class ChamadosCliente {
         //setCliente
         chamado.setCliente(cliente);
 
+        totalChamados++;
         try {
             negocioChamado.adicionarChamado(chamado);
         } catch (ClassNotFoundException e) {
@@ -141,13 +156,30 @@ public class ChamadosCliente {
         }
     }
 
+    public void estatisticas(){
+        System.out.println("=================================================");
+        System.out.println("Estatísticas do mês de dezembro - 2017");
+        System.out.println("Total de chamados criados: "+totalChamados);//qtd chamados
+        System.out.println("Porcentagem de chamados do setor de Administração: "+(porcAdm/100));//qtd adm
+        System.out.println("Porcentaem de chamados da categoria Hardware: "+porcHardware/100);//qtd hardware
+        System.out.println("Porcentagem de chamados com prioridade Alta: "+porcPrio/100);//qtd alta
+        System.out.println("Voltar ao menu ou sair?");
+        String opc = sc.nextLine();
+        if(opc.equalsIgnoreCase("menu")){
+        }else{
+            System.out.println("Saindo..");
+            System.exit(0);
+        }
+        System.out.println("=================================================");
+    }
+
     private void listarChamados(Cliente cliente) throws ClassNotFoundException, IOException {
 
         if (negocioChamado.listarTodosChamados().size() > 0) {
             System.out.println("Título de chamados registrados, em nome de " + cliente.getNomeCompleto() + " e seus IDs:");
             for (Chamado chamado : negocioChamado.listarTodosChamados()) {
                 if (chamado.getCliente().getId() == cliente.getId()) {
-                    System.out.println(chamado.getTitulo() + " [" + chamado.getNumeroChamado() + ']' +"[Categoria: "+chamado.getCategoria()+']'+ "[Descrição: "+chamado.getDescricao()+']');
+                    System.out.println(chamado.getTitulo() + " [" + chamado.getNumeroChamado() + ']' + "[Categoria: " + chamado.getCategoria() + ']' + "[Descrição: " + chamado.getDescricao() + ']');
                 }
             }
         } else {

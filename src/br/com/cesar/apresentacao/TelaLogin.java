@@ -1,7 +1,9 @@
 package br.com.cesar.apresentacao;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 import br.com.cesar.entidades.Cliente;
 import br.com.cesar.entidades.Funcionario;
@@ -17,6 +19,7 @@ public class TelaLogin {
     private NegocioCliente negocioCliente;
     private NegocioFuncionario negocioFuncionario;
     private Scanner sc;
+
 
     public TelaLogin() {
         negocioCliente = new NegocioCliente();
@@ -100,24 +103,37 @@ public class TelaLogin {
     }
 
     public void cadastroCliente() throws ClienteNaoExistente, FuncionarioNaoExistente, ChamadoNaoExistente {
+        TreeSet<String> tree = new TreeSet<String>();
+
         try {
             System.out.println("=================================================");
             System.out.println("Façamos seu cadastro de cliente então:\n");
 
             System.out.println("Digite seu nome: ");
             String nome = sc.nextLine();
+            tree.add(nome);
 
             System.out.println("Digite seu login: ");
             String login = sc.nextLine();
+            tree.add(login);
 
             System.out.println("Digite sua senha: ");
             String senha = sc.nextLine();
 
+            System.out.println("Digite seu ano de nascimento: ");
+            String ano = sc.nextLine();
+            tree.add(ano);
+            Iterator<String> iterator = tree.iterator();
+            System.out.println("Elementos do TreeSet do usuário: ");
+            while(iterator.hasNext()) {
+                System.out.println(iterator.next()+ " ");
+            }
             //utilizar treeSet aqui
 
             negocioCliente.adicionarCliente(new Cliente(Utils.gerarIdCliente(), nome, null, login, senha));
 
             System.out.println("Cadastro efetuado com sucesso.\n");
+
             jaCadastrado();
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();

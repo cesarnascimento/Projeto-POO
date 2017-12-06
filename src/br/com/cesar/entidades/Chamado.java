@@ -77,7 +77,7 @@ public class Chamado implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Criador do chamado: " + cliente.getNomeCompleto() +
+		return "\nCriador do chamado: " + cliente.getNomeCompleto() +
 				"\nChamado de número: " + numeroChamado +
 				"\nTítulo do chamado: " + titulo.substring(0, 1).toUpperCase() + titulo.substring(1) +
 				"\nCategoria do chamado: " + categoria.substring(0, 1).toUpperCase() + categoria.substring(1) +
