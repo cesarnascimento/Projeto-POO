@@ -16,57 +16,55 @@ public class ChamadosFuncionario {
     private Scanner sc;
     private INegocioFuncionario negocioFuncionario;
     private NegocioChamado negocioChamado;
-    private Funcionario funcionario;
     private ChamadosCliente chamadosCliente;
     private Chamado chamado;
+    private Funcionario funcionario;
+
 
 
     public ChamadosFuncionario() {
         sc = new Scanner(System.in);
         negocioFuncionario = new NegocioFuncionario();
         negocioChamado = new NegocioChamado();
-        funcionario = new Funcionario();
         chamadosCliente = new ChamadosCliente();
         chamado = new Chamado();
+        funcionario = new Funcionario();
     }
 
-    public void painelFuncionario(Cliente cliente) throws ChamadoNaoExistente, IOException, ClassNotFoundException {
+    public void painelFuncionario(Funcionario funcionario) throws ChamadoNaoExistente, IOException, ClassNotFoundException {
         System.out.println("Logado como funcionário com sucesso!");
 
         boolean running = true;
-        while(running){
+        while (running) {
             System.out.println("=================================================");
             System.out.println("Bem-vindo ao painel de controle de funcionários");
-            System.out.println("Você está logado como: "+funcionario.getNomeCompleto()
-            +"\nE seu usuário é: "+funcionario.getLogin()+ '[' + funcionario.getId() + ']');
+            System.out.println("Você está logado como: " + funcionario.getNomeCompleto()
+                    + "\nE seu usuário é: " + funcionario.getLogin() + '[' + funcionario.getId() + ']');
             System.out.println("Oque você deseja fazer?" +
                     "\n1 - Ver chamados abertos" +
-                    "\n2- Apagar chamado por ID" +
+                    "\n2 - Apagar chamado por ID" +
                     "\n3 - Sair");
             int opcao = Integer.parseInt(sc.nextLine());
 
-            if(opcao == 1){
+            if (opcao == 1) {
                 //ver chamados abertos
-                try {
-                    chamadosCliente.listarChamados(cliente);
-                } catch (ClassNotFoundException | IOException e) {
-                    e.printStackTrace();
-                }
-            }else if(opcao == 2){
+                System.out.println(negocioChamado.listarTodosChamados());
+
+            }
+            if (opcao == 2) {
                 //apagar chamado por ID
                 System.out.println("Digite o ID do chamado que você deseja apagar: ");
                 int id = Integer.parseInt(sc.nextLine());
-                if(id == chamado.getNumeroChamado()){
-                    negocioChamado.removerChamado(id);
-                }else{
-                    System.out.println("Número de chamado não existente no banco de dados.");
+                if (id == chamado.getNumeroChamado()) {
+                    negocioChamado.removerChamado(chamado.getNumeroChamado());
+                    System.out.println("Chamado de número "+ '['+chamado.getNumeroChamado()+']'+" apagado com sucesso!");
+                } else {
+                    System.out.println("Não existe um chamado com esse ID.");
                 }
 
-            }else if(opcao == 3){
+            } else if (opcao == 3) {
                 System.out.println("Saindo..");
                 System.exit(0);
-            }else{
-                System.out.println("Opção inválida.");
             }
 
         }

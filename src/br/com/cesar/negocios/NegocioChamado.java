@@ -38,7 +38,7 @@ public class NegocioChamado implements INegocioChamado {
 	@Override
 	public void removerChamado(int numeroChamado) throws ClassNotFoundException, IOException, ChamadoNaoExistente {
 		List<Chamado> chamados = dao.ler();
-		chamados.remove(buscarChamado(numeroChamado));
+		chamados.remove(numeroChamado);
 		dao.escrever(chamados);
 	}
 

@@ -36,7 +36,7 @@ public class TelaLogin {
                 jaCadastrado();
             } else if (opc == 'N' || opc == 'n') {
                 System.out.println("=================================================");
-                System.out.println("Cadastrar como cliente - 1\nFuncionário - 2 \nAdministrador - 3?");
+                System.out.println("Cadastrar como cliente - 1\nFuncionário - 2 \nAdministrador - 3");
                 System.out.println("=================================================");
                 int opcao = Integer.parseInt(sc.nextLine());
                 if (opcao == 1) {
@@ -49,6 +49,8 @@ public class TelaLogin {
                     System.out.println("Opção inválida.");
                 }
 
+            }else{
+                System.out.println("Opção inválida.");
             }
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
@@ -85,9 +87,10 @@ public class TelaLogin {
 
             if (senha.equals(((Funcionario) pessoa).getSenha())) {
                 if (((Funcionario) pessoa).getCargo().equals("Funcionario")) {
-                    new ChamadosFuncionario().painelFuncionario((Cliente) pessoa);
+                    new ChamadosFuncionario().painelFuncionario((Funcionario) pessoa);
                 } else if (((Funcionario) pessoa).getCargo().equals("Administrador")) {
                     // menu de administradores
+                    new ChamadosAdministrador().painelAdministrador((Funcionario) pessoa);
                 }
             } else {
                 System.out.println("Senha incorreta.");
@@ -109,6 +112,8 @@ public class TelaLogin {
 
             System.out.println("Digite sua senha: ");
             String senha = sc.nextLine();
+
+            //utilizar treeSet aqui
 
             negocioCliente.adicionarCliente(new Cliente(Utils.gerarIdCliente(), nome, null, login, senha));
 
@@ -133,8 +138,8 @@ public class TelaLogin {
 
             System.out.println("Digite sua senha: ");
             String senha = sc.nextLine();
-            String cargo = "Atendente";
-            negocioFuncionario.adicionarFuncionario(new Funcionario(Utils.gerarIdFuncionario(), nome,null,login,senha, cargo,null));
+            String cargo = "Funcionario";
+            negocioFuncionario.adicionarFuncionario(new Funcionario(Utils.gerarIdFuncionario(), nome,null,login,senha, "Funcionario",null));
             //negocioCliente.adicionarCliente(new Cliente(Utils.gerarIdCliente(), nome, null, login, senha));
 
             System.out.println("Cadastro de funcionário efetuado com sucesso.\n");
@@ -159,8 +164,7 @@ public class TelaLogin {
             System.out.println("Digite sua senha: ");
             String senha = sc.nextLine();
             String cargo = "Administrador";
-            negocioFuncionario.adicionarFuncionario(new Funcionario(Utils.gerarIdFuncionario(), nome,null,login,senha, cargo,null));
-            //negocioCliente.adicionarCliente(new Cliente(Utils.gerarIdCliente(), nome, null, login, senha));
+            negocioFuncionario.adicionarFuncionario(new Funcionario(Utils.gerarIdFuncionario(), nome,null,login,senha, "Administrador",null));
 
             System.out.println("Cadastro de administrador efetuado com sucesso.\n");
             jaCadastrado();

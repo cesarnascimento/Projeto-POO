@@ -77,11 +77,12 @@ public class Chamado implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Chamado de número: " + numeroChamado +
+		return "Criador do chamado: " + cliente.getNomeCompleto() +
+				"\nChamado de número: " + numeroChamado +
 				"\nTítulo do chamado: " + titulo.substring(0, 1).toUpperCase() + titulo.substring(1) +
 				"\nCategoria do chamado: " + categoria.substring(0, 1).toUpperCase() + categoria.substring(1) +
 				"\nSetor do chamado: " + setor.substring(0, 1).toUpperCase() + setor.substring(1) +
-				"\nPrioridade do chamado:" + ((prioridade == 1) ? "BAIXA": ((prioridade == 2) ? "MÉDIA" : "ALTA")) +
+				"\nPrioridade do chamado:" + ((prioridade == 1) ? "Baixa": ((prioridade == 2) ? "Média" : "Alta")) +
 				"\nDescrição do chamado: " + descricao.substring(0, 1).toUpperCase() + descricao.substring(1);
 	}
 }

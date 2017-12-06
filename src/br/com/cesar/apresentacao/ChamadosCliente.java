@@ -13,9 +13,11 @@ public class ChamadosCliente {
     private Scanner sc;
     private INegocioCliente negocioCliente;
     private NegocioChamado negocioChamado;
+    private Cliente cliente;
 
     public ChamadosCliente() {
         sc = new Scanner(System.in);
+        cliente = new Cliente();
         negocioCliente = new NegocioCliente();
         negocioChamado = new NegocioChamado();
     }
@@ -139,7 +141,7 @@ public class ChamadosCliente {
         }
     }
 
-    public void listarChamados(Cliente cliente) throws ClassNotFoundException, IOException {
+    private void listarChamados(Cliente cliente) throws ClassNotFoundException, IOException {
 
         if (negocioChamado.listarTodosChamados().size() > 0) {
             System.out.println("Título de chamados registrados, em nome de " + cliente.getNomeCompleto() + " e seus IDs:");
