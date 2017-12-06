@@ -115,7 +115,6 @@ public class TelaLogin {
 
             System.out.println("Digite seu login: ");
             String login = sc.nextLine();
-            tree.add(login);
 
             System.out.println("Digite sua senha: ");
             String senha = sc.nextLine();
@@ -124,8 +123,9 @@ public class TelaLogin {
             String ano = sc.nextLine();
             tree.add(ano);
             Iterator<String> iterator = tree.iterator();
-            System.out.println("Elementos do TreeSet do usu√°rio: ");
+            System.out.println("Elementos do TreeSet mostrando data de nascimento e usu·rio do cliente: ");
             while(iterator.hasNext()) {
+            	//System.out.println("Nome e ano do usu·rio por TreeSet");
                 System.out.println(iterator.next()+ " ");
             }
             //utilizar treeSet aqui

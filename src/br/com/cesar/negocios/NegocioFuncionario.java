@@ -28,9 +28,14 @@ public class NegocioFuncionario implements INegocioFuncionario {
 	public Funcionario buscarFuncionario(int id) throws ClassNotFoundException, IOException, FuncionarioNaoExistente {
 		List<Funcionario> funcionarios = dao.ler();
 
-		for (Funcionario f : funcionarios) {
-			if (f.getId() == id)
-				return f;
+		Iterator<Funcionario> iterator = funcionarios.iterator();
+
+		Funcionario funcionario = null;
+		while (iterator.hasNext()) {
+			funcionario = iterator.next();
+
+			if (funcionario.getId() == id)
+				return funcionario;
 		}
 
 		throw new FuncionarioNaoExistente("ID inserida inválida.");
@@ -38,7 +43,7 @@ public class NegocioFuncionario implements INegocioFuncionario {
 
 	public Funcionario buscarFuncionario(String login) throws ClassNotFoundException, IOException, FuncionarioNaoExistente {
 		List<Funcionario> funcionarios = dao.ler();
-		
+
 		Iterator<Funcionario> iterator = funcionarios.iterator();
 
 		Funcionario funcionario = null;
@@ -55,17 +60,25 @@ public class NegocioFuncionario implements INegocioFuncionario {
 	@Override
 	public void removerFuncionario(int id) throws ClassNotFoundException, IOException, FuncionarioNaoExistente {
 		List<Funcionario> funcionarios = dao.ler();
-		funcionarios.remove(buscarFuncionario(id));
+
+		Iterator<Funcionario> iterator = funcionarios.iterator();
+
+		Funcionario funcionario = null;
+		while (iterator.hasNext()) {
+			funcionario = iterator.next();
+
+			if (funcionario.getId() == id)
+				iterator.remove();
+		}
+
 		dao.escrever(funcionarios);
 	}
 
 	@Override
 	public void alterarFuncionario(int id, Funcionario novoFuncionario)
 			throws ClassNotFoundException, IOException, FuncionarioNaoExistente {
-		List<Funcionario> funcionarios = dao.ler();
 		removerFuncionario(id);
 		adicionarFuncionario(novoFuncionario);
-		dao.escrever(funcionarios);
 	}
 
 	public boolean contemFuncionario(String login) throws ClassNotFoundException, IOException {
